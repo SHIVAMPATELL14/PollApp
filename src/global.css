@@ -1,0 +1,6 @@
+/* client/src/global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add any global styles you want here */

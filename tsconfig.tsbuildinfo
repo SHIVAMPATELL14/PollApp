@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/button.tsx","./src/components/navbar.tsx","./src/components/pollcard.tsx","./src/pages/addpoll.tsx","./src/pages/createpoll.tsx","./src/pages/home.tsx","./src/pages/polllist.tsx","./src/pages/pollpreview.tsx","./src/pages/viewpoll.tsx","./src/types/poll.ts"],"version":"5.9.2"}
