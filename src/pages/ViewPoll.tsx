@@ -7,6 +7,7 @@ import { Poll, PollOption } from "../types/poll";
 export default function ViewPoll() {
   const { id } = useParams<{ id: string }>();
   const API_BASE = import.meta.env.VITE_API_URL || "https://pollapp-backend-production.up.railway.app";
+  
   const [poll, setPoll] = useState<Poll | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -60,9 +61,9 @@ export default function ViewPoll() {
   useEffect(() => {
     fetchPoll();
 
-    // Live results via SSE
+    // Live results via SSE - FIXED URL
     if (!id) return;
-    const evtSource = new EventSource(`/api/poll/${id}/results-stream`);
+    const evtSource = new EventSource(`${API_BASE}/api/poll/${id}/results-stream`);
     evtSource.onmessage = (event) => {
       const data = JSON.parse(event.data);
       setPoll((prev) =>
@@ -90,7 +91,9 @@ export default function ViewPoll() {
         localStorage.setItem(storageKey, generated);
         idem = generated;
       }
-      const res = await fetch(`/api/poll/${poll._id}/vote`, {
+      
+      // FIXED URL
+      const res = await fetch(`${API_BASE}/api/poll/${poll._id}/vote`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ option: optionIndex, idempotencyKey: idem }),
@@ -104,7 +107,7 @@ export default function ViewPoll() {
           return next;
         });
       } else {
-        setVoteStatus("You’ve already voted or poll expired.");
+        setVoteStatus("You've already voted or poll expired.");
       }
 
       fetchPoll(); // refresh poll data
@@ -149,7 +152,7 @@ export default function ViewPoll() {
       ) : expired ? (
         <p className="poll-status text-red-600">Poll has expired. Voting closed.</p>
       ) : (
-        <p className="poll-status text-green-600">You’ve already voted in this poll!</p>
+        <p className="poll-status text-green-600">You've already voted in this poll!</p>
       )}
 
       <h3>Live Results</h3>
