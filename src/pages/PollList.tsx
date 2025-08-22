@@ -13,7 +13,9 @@ export default function PollList() {
   useEffect(() => {
     const fetchPolls = async () => {
       try {
-        const res = await fetch("/api/");
+        const API_BASE = import.meta.env.VITE_API_URL || "https://pollapp-backend-production.up.railway.app";
+const res = await fetch(`${API_BASE}/api/`);
+
         if (!res.ok) throw new Error("Failed to fetch polls.");
         const data: Poll[] = await res.json();
 

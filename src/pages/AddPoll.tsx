@@ -50,7 +50,9 @@ export default function AddPoll() {
 
     const optionsPayload = filledOptions.map(text => ({ text }));
 
-    const res = await fetch("/api/poll/add", {
+    const API_BASE = import.meta.env.VITE_API_URL || "https://pollapp-backend-production.up.railway.app";
+const res = await fetch(`${API_BASE}/api/poll/add`, {
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

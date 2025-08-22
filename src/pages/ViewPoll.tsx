@@ -6,6 +6,7 @@ import { Poll, PollOption } from "../types/poll";
 
 export default function ViewPoll() {
   const { id } = useParams<{ id: string }>();
+  const API_BASE = import.meta.env.VITE_API_URL || "https://pollapp-backend-production.up.railway.app";
   const [poll, setPoll] = useState<Poll | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -19,7 +20,7 @@ export default function ViewPoll() {
   // Fetch poll data
   const fetchPoll = async () => {
     try {
-      const res = await fetch(`/api/poll/${id}`);
+      const res = await fetch(`${API_BASE}/api/poll/${id}`);
       if (!res.ok) throw new Error("Poll not found");
 
       const data = await res.json();
